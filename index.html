@@ -7,493 +7,141 @@
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+JP:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
-  --cream:    #F5F2EC;
-  --cream2:   #EDE9E1;
-  --cream3:   #E4DFD5;
-  --white:    #FDFCFA;
-  --ink:      #1A1713;
-  --ink2:     #3D3830;
-  --ink3:     #6B6358;
-  --ink4:     #9C9288;
-  --rust:     #C4502A;
-  --rust-dim: rgba(196,80,42,0.08);
-  --rust-mid: rgba(196,80,42,0.18);
-  --border:   rgba(26,23,19,0.10);
-  --border2:  rgba(26,23,19,0.06);
-  --shadow:   0 1px 3px rgba(26,23,19,0.07), 0 4px 12px rgba(26,23,19,0.05);
-  --shadow-lg:0 2px 8px rgba(26,23,19,0.08), 0 12px 32px rgba(26,23,19,0.07);
-  --r: 10px;
+  --cream:#F5F2EC; --cream2:#EDE9E1; --cream3:#E4DFD5;
+  --white:#FDFCFA; --ink:#1A1713; --ink2:#3D3830;
+  --ink3:#6B6358; --ink4:#9C9288;
+  --rust:#C4502A; --rust-dim:rgba(196,80,42,0.08); --rust-mid:rgba(196,80,42,0.18);
+  --border:rgba(26,23,19,0.10); --green:#2D7A4F; --green-dim:rgba(45,122,79,0.09);
+  --shadow:0 1px 3px rgba(26,23,19,0.07),0 4px 12px rgba(26,23,19,0.05);
 }
+html,body { height:100%; background:var(--cream); color:var(--ink2); font-family:'Inter',sans-serif; font-size:14px; line-height:1.6; -webkit-font-smoothing:antialiased; }
 
-html, body {
-  height: 100%;
-  background: var(--cream);
-  color: var(--ink2);
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
-}
+/* HEADER */
+header { display:flex; align-items:center; padding:0 28px; height:54px; background:var(--white); border-bottom:1px solid var(--border); gap:14px; }
+.logo { font-family:'Lora',serif; font-size:18px; font-weight:600; color:var(--ink); }
+.logo span { color:var(--rust); }
+.hdr-sub { font-size:12px; color:var(--ink4); }
+.hdiv { width:1px; height:18px; background:var(--border); }
+.hdr-right { margin-left:auto; display:flex; gap:8px; align-items:center; }
+.hdr-badge { font-size:11px; color:var(--ink4); background:var(--cream); border:1px solid var(--border); border-radius:20px; padding:3px 10px; }
 
-/* ── HEADER ── */
-header {
-  display: flex;
-  align-items: center;
-  padding: 0 32px;
-  height: 56px;
-  background: var(--white);
-  border-bottom: 1px solid var(--border);
-  gap: 16px;
-}
-.logo {
-  font-family: 'Lora', serif;
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--ink);
-  letter-spacing: -0.3px;
-}
-.logo-dot { color: var(--rust); }
-.header-sub {
-  font-size: 12px;
-  color: var(--ink4);
-  letter-spacing: 0.3px;
-}
-.header-divider {
-  width: 1px; height: 20px;
-  background: var(--border);
-}
-.header-right { margin-left: auto; display: flex; gap: 8px; align-items: center; }
+/* LAYOUT */
+.app { display:grid; grid-template-columns:1fr 360px; grid-template-rows:auto 1fr; height:calc(100vh - 54px); overflow:hidden; }
 
-/* ── LAYOUT ── */
-.app {
-  display: grid;
-  grid-template-columns: 1fr 360px;
-  grid-template-rows: auto 1fr;
-  height: calc(100vh - 56px);
-  overflow: hidden;
-}
+/* URL BAR */
+.url-bar { grid-column:1/-1; display:flex; align-items:center; gap:10px; padding:11px 20px; background:var(--white); border-bottom:1px solid var(--border); }
+.url-label { font-size:12px; color:var(--ink4); font-weight:500; white-space:nowrap; }
+.url-bar input { flex:1; background:var(--cream); border:1px solid var(--border); border-radius:8px; padding:7px 14px; color:var(--ink); font-size:13px; font-family:'Inter',sans-serif; outline:none; transition:border-color .2s,background .2s; }
+.url-bar input:focus { border-color:var(--rust); background:var(--white); }
+.url-bar input::placeholder { color:var(--ink4); }
+.btn { padding:7px 15px; border-radius:8px; border:none; cursor:pointer; font-size:13px; font-weight:500; font-family:'Inter',sans-serif; transition:all .15s; white-space:nowrap; }
+.btn-primary { background:var(--ink); color:var(--white); }
+.btn-primary:hover { background:var(--rust); }
+.btn-primary:disabled { background:var(--ink4); cursor:not-allowed; }
+.btn-outline { background:transparent; color:var(--ink2); border:1px solid var(--border); }
+.btn-outline:hover { background:var(--cream2); color:var(--ink); }
+.btn-green { background:var(--green); color:#fff; }
+.btn-green:hover { background:#235f3c; }
+.btn-green:disabled { background:var(--ink4); cursor:not-allowed; }
 
-/* ── URL BAR ── */
-.url-bar {
-  grid-column: 1 / -1;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 24px;
-  background: var(--white);
-  border-bottom: 1px solid var(--border);
-}
-.url-label {
-  font-size: 12px;
-  color: var(--ink4);
-  font-weight: 500;
-  white-space: nowrap;
-}
-.url-input-wrap {
-  flex: 1;
-  position: relative;
-}
-.url-input-wrap input {
-  width: 100%;
-  background: var(--cream);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 7px 14px;
-  color: var(--ink);
-  font-size: 13px;
-  font-family: 'Inter', sans-serif;
-  outline: none;
-  transition: border-color 0.2s, background 0.2s;
-}
-.url-input-wrap input:focus {
-  border-color: var(--rust);
-  background: var(--white);
-}
-.url-input-wrap input::placeholder { color: var(--ink4); }
+/* VIDEO PANEL */
+.video-panel { display:flex; flex-direction:column; overflow:hidden; background:var(--cream); }
+.video-wrap { position:relative; padding-top:56.25%; background:var(--cream2); flex-shrink:0; }
+.video-wrap > * { position:absolute; inset:0; width:100%; height:100%; }
+#yt-placeholder { display:flex; flex-direction:column; align-items:center; justify-content:center; background:var(--cream2); gap:12px; text-align:center; padding:24px; }
+#yt-placeholder .ph-icon { width:52px; height:52px; border-radius:50%; background:var(--cream3); display:flex; align-items:center; justify-content:center; font-size:22px; }
+#yt-placeholder p { font-size:13px; color:var(--ink3); line-height:1.6; max-width:240px; }
+#yt-placeholder strong { color:var(--ink2); font-weight:500; }
 
-.btn {
-  padding: 7px 16px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 500;
-  font-family: 'Inter', sans-serif;
-  transition: all 0.15s;
-  white-space: nowrap;
-}
-.btn-primary {
-  background: var(--ink);
-  color: var(--white);
-}
-.btn-primary:hover { background: var(--rust); }
-.btn-outline {
-  background: transparent;
-  color: var(--ink2);
-  border: 1px solid var(--border);
-}
-.btn-outline:hover { background: var(--cream2); border-color: var(--border2); color: var(--ink); }
+/* KARAOKE */
+.karaoke-area { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:20px 28px; background:var(--white); border-top:1px solid var(--border); border-bottom:1px solid var(--border); min-height:0; position:relative; }
+.k-linenum { position:absolute; top:12px; left:18px; font-size:11px; color:var(--ink4); font-variant-numeric:tabular-nums; }
+.k-status { position:absolute; top:10px; right:14px; font-size:11px; color:var(--ink4); display:flex; align-items:center; gap:5px; }
+.k-status .spin { width:11px; height:11px; border:1.5px solid var(--border); border-top-color:var(--rust); border-radius:50%; animation:spin .7s linear infinite; }
+@keyframes spin { to { transform:rotate(360deg); } }
+.karaoke-jp { font-family:'Noto Sans JP',sans-serif; font-size:clamp(18px,2.8vw,30px); font-weight:400; text-align:center; line-height:2; letter-spacing:3px; color:var(--cream3); margin-bottom:12px; word-break:break-all; max-width:100%; }
+.karaoke-jp .w { display:inline; transition:color .08s; }
+.karaoke-jp .w.done { color:var(--ink4); }
+.karaoke-jp .w.active { color:var(--ink); font-weight:500; }
+.karaoke-vn { font-size:13px; color:var(--rust); text-align:center; font-style:italic; font-family:'Lora',serif; min-height:20px; transition:opacity .25s; max-width:420px; }
+.karaoke-area.hide-vn .karaoke-vn { opacity:0; }
 
-/* ── VIDEO PANEL ── */
-.video-panel {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  background: var(--cream);
-}
-.video-wrap {
-  position: relative;
-  padding-top: 56.25%;
-  background: var(--cream2);
-  flex-shrink: 0;
-}
-.video-wrap > * {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-}
-#yt-placeholder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: var(--cream2);
-  color: var(--ink3);
-  gap: 14px;
-  text-align: center;
-  padding: 24px;
-}
-#yt-placeholder .ph-icon {
-  width: 56px; height: 56px;
-  border-radius: 50%;
-  background: var(--cream3);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 24px;
-}
-#yt-placeholder p { font-size: 13px; color: var(--ink3); line-height: 1.6; max-width: 240px; }
-#yt-placeholder strong { color: var(--ink2); font-weight: 500; }
+/* PROGRESS */
+.prog-wrap { height:2px; background:var(--border); flex-shrink:0; }
+.prog-fill { height:100%; background:var(--rust); width:0%; transition:width .3s linear; }
 
-/* ── KARAOKE AREA ── */
-.karaoke-area {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 24px 32px;
-  background: var(--white);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  min-height: 0;
-  position: relative;
-}
-.karaoke-line-num {
-  position: absolute;
-  top: 14px; left: 20px;
-  font-size: 11px;
-  color: var(--ink4);
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0.5px;
-}
-.karaoke-jp {
-  font-family: 'Noto Sans JP', sans-serif;
-  font-size: clamp(20px, 3vw, 32px);
-  font-weight: 400;
-  text-align: center;
-  line-height: 2;
-  letter-spacing: 3px;
-  color: var(--cream3);
-  margin-bottom: 14px;
-  word-break: break-all;
-  max-width: 100%;
-}
-.karaoke-jp .w {
-  display: inline;
-  transition: color 0.08s;
-}
-.karaoke-jp .w.done { color: var(--ink4); }
-.karaoke-jp .w.active {
-  color: var(--ink);
-  font-weight: 500;
-}
-.karaoke-vn {
-  font-size: 13px;
-  color: var(--rust);
-  text-align: center;
-  font-style: italic;
-  font-family: 'Lora', serif;
-  min-height: 20px;
-  transition: opacity 0.25s;
-  max-width: 420px;
-}
-.karaoke-area.hide-vn .karaoke-vn { opacity: 0; }
+/* CONTROLS */
+.controls { display:flex; align-items:center; gap:6px; padding:9px 14px; background:var(--cream); border-top:1px solid var(--border); flex-wrap:wrap; flex-shrink:0; }
+.ctl { display:inline-flex; align-items:center; gap:5px; padding:5px 10px; border-radius:6px; background:var(--white); border:1px solid var(--border); color:var(--ink3); font-size:12px; font-weight:500; cursor:pointer; transition:all .15s; font-family:'Inter',sans-serif; }
+.ctl:hover { background:var(--cream2); color:var(--ink); }
+.ctl.on { background:var(--rust-dim); border-color:var(--rust-mid); color:var(--rust); }
+.ctl-speed { margin-left:auto; display:flex; align-items:center; gap:6px; }
+.ctl-speed label { font-size:11px; color:var(--ink4); }
+.ctl-speed select { background:var(--white); border:1px solid var(--border); color:var(--ink2); border-radius:6px; padding:4px 8px; font-size:12px; cursor:pointer; outline:none; font-family:'Inter',sans-serif; }
 
-/* Progress */
-.prog-wrap {
-  height: 2px;
-  background: var(--border);
-  flex-shrink: 0;
-  position: relative;
-}
-.prog-fill {
-  height: 100%;
-  background: var(--rust);
-  width: 0%;
-  transition: width 0.3s linear;
-}
+/* RIGHT PANEL */
+.right-panel { display:flex; flex-direction:column; overflow:hidden; background:var(--white); border-left:1px solid var(--border); }
+.tabs { display:flex; border-bottom:1px solid var(--border); flex-shrink:0; padding:0 4px; }
+.tab { padding:10px 13px; font-size:12px; font-weight:500; cursor:pointer; color:var(--ink4); border-bottom:2px solid transparent; margin-bottom:-1px; transition:color .15s,border-color .15s; }
+.tab:hover:not(.on) { color:var(--ink2); }
+.tab.on { color:var(--ink); border-bottom-color:var(--ink); }
+.tc { display:none; flex:1; flex-direction:column; overflow:hidden; }
+.tc.on { display:flex; }
 
-/* ── CONTROLS ── */
-.controls {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 16px;
-  background: var(--cream);
-  border-top: 1px solid var(--border);
-  flex-wrap: wrap;
-  flex-shrink: 0;
-}
-.ctl {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 5px 11px;
-  border-radius: 6px;
-  background: var(--white);
-  border: 1px solid var(--border);
-  color: var(--ink3);
-  font-size: 12px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.15s;
-  font-family: 'Inter', sans-serif;
-}
-.ctl:hover { background: var(--cream2); color: var(--ink); }
-.ctl.on {
-  background: var(--rust-dim);
-  border-color: var(--rust-mid);
-  color: var(--rust);
-}
-.ctl-speed {
-  margin-left: auto;
-  display: flex; align-items: center; gap: 7px;
-}
-.ctl-speed label { font-size: 11px; color: var(--ink4); }
-.ctl-speed select {
-  background: var(--white);
-  border: 1px solid var(--border);
-  color: var(--ink2);
-  border-radius: 6px;
-  padding: 4px 8px;
-  font-size: 12px;
-  cursor: pointer;
-  outline: none;
-  font-family: 'Inter', sans-serif;
-}
+/* TRANSCRIPT LIST */
+.t-list { flex:1; overflow-y:auto; padding:10px; }
+.t-list::-webkit-scrollbar { width:3px; }
+.t-list::-webkit-scrollbar-thumb { background:var(--cream3); border-radius:3px; }
+.t-card { padding:9px 12px; border-radius:8px; cursor:pointer; transition:background .12s; margin-bottom:2px; border:1px solid transparent; }
+.t-card:hover { background:var(--cream); }
+.t-card.on { background:var(--rust-dim); border-color:var(--rust-mid); }
+.t-time { font-size:10px; color:var(--ink4); margin-bottom:2px; font-variant-numeric:tabular-nums; }
+.t-jp { font-family:'Noto Sans JP',sans-serif; font-size:14px; color:var(--ink); line-height:1.7; margin-bottom:2px; }
+.t-vn { font-size:12px; color:var(--rust); font-style:italic; font-family:'Lora',serif; line-height:1.5; transition:opacity .25s; }
+.hide-vn .t-vn { opacity:0; }
 
-/* ── RIGHT PANEL ── */
-.right-panel {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  background: var(--white);
-  border-left: 1px solid var(--border);
-}
+/* FETCH STATUS BAR */
+.fetch-bar { flex-shrink:0; padding:8px 12px; background:var(--cream); border-bottom:1px solid var(--border); display:none; }
+.fetch-bar.show { display:block; }
+.fetch-steps { display:flex; gap:6px; flex-wrap:wrap; }
+.fstep { display:inline-flex; align-items:center; gap:5px; font-size:11px; color:var(--ink4); padding:3px 9px; border-radius:20px; background:var(--white); border:1px solid var(--border); transition:all .2s; }
+.fstep.active { color:var(--rust); border-color:var(--rust-mid); background:var(--rust-dim); }
+.fstep.done { color:var(--green); border-color:rgba(45,122,79,.2); background:var(--green-dim); }
+.fstep.err { color:#b91c1c; border-color:rgba(185,28,28,.2); background:rgba(185,28,28,.06); }
+.spin-sm { width:10px; height:10px; border:1.5px solid currentColor; border-top-color:transparent; border-radius:50%; animation:spin .7s linear infinite; display:inline-block; }
 
-/* Tabs */
-.tabs {
-  display: flex;
-  border-bottom: 1px solid var(--border);
-  flex-shrink: 0;
-  padding: 0 4px;
-  background: var(--white);
-}
-.tab {
-  padding: 11px 14px;
-  font-size: 12px;
-  font-weight: 500;
-  cursor: pointer;
-  color: var(--ink4);
-  border-bottom: 2px solid transparent;
-  margin-bottom: -1px;
-  transition: color 0.15s, border-color 0.15s;
-  letter-spacing: 0.2px;
-}
-.tab:hover:not(.on) { color: var(--ink2); }
-.tab.on { color: var(--ink); border-bottom-color: var(--ink); }
+/* EDIT TAB */
+.edit-wrap { flex:1; overflow-y:auto; padding:14px; display:flex; flex-direction:column; gap:10px; }
+.hint-box { background:var(--cream); border:1px solid var(--border); border-radius:8px; padding:11px 13px; font-size:12px; color:var(--ink3); line-height:1.7; }
+.hint-box code { background:var(--cream2); border:1px solid var(--border); padding:1px 5px; border-radius:4px; font-size:11px; color:var(--rust); font-family:monospace; }
+.script-ta { flex:1; min-height:240px; background:var(--cream); border:1px solid var(--border); border-radius:8px; color:var(--ink); font-size:12.5px; font-family:'Noto Sans JP',monospace; padding:12px 14px; resize:vertical; outline:none; line-height:1.9; }
+.script-ta:focus { border-color:rgba(26,23,19,.25); background:var(--white); }
+.edit-actions { display:flex; gap:8px; }
 
-.tc { display: none; flex: 1; flex-direction: column; overflow: hidden; }
-.tc.on { display: flex; }
+/* SAMPLES */
+.samples-wrap { flex:1; overflow-y:auto; padding:12px; display:flex; flex-direction:column; gap:7px; }
+.s-card { background:var(--white); border:1px solid var(--border); border-radius:10px; padding:11px 13px; cursor:pointer; transition:all .15s; display:flex; align-items:center; gap:11px; }
+.s-card:hover { border-color:rgba(26,23,19,.22); background:var(--cream); box-shadow:var(--shadow); }
+.s-icon { width:36px; height:36px; border-radius:8px; background:var(--cream2); display:flex; align-items:center; justify-content:center; font-size:17px; flex-shrink:0; }
+.s-info { flex:1; min-width:0; }
+.s-level { font-size:10px; font-weight:600; color:var(--rust); letter-spacing:.6px; text-transform:uppercase; margin-bottom:2px; }
+.s-title { font-family:'Lora',serif; font-size:13.5px; color:var(--ink); font-weight:500; margin-bottom:1px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.s-sub { font-size:11px; color:var(--ink4); }
 
-/* ── TRANSCRIPT LIST ── */
-.t-list {
-  flex: 1;
-  overflow-y: auto;
-  padding: 10px;
-}
-.t-list::-webkit-scrollbar { width: 3px; }
-.t-list::-webkit-scrollbar-track { background: transparent; }
-.t-list::-webkit-scrollbar-thumb { background: var(--cream3); border-radius: 3px; }
+/* EMPTY */
+.empty { display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; gap:8px; color:var(--ink4); text-align:center; padding:20px; }
+.empty-icon { font-size:30px; opacity:.45; margin-bottom:4px; }
+.empty p { font-size:13px; line-height:1.6; max-width:210px; }
+.empty strong { color:var(--ink3); font-weight:500; }
 
-.t-card {
-  padding: 9px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.12s;
-  margin-bottom: 2px;
-  border: 1px solid transparent;
-}
-.t-card:hover { background: var(--cream); }
-.t-card.on {
-  background: var(--rust-dim);
-  border-color: var(--rust-mid);
-}
-.t-time {
-  font-size: 10px;
-  color: var(--ink4);
-  margin-bottom: 2px;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0.3px;
-}
-.t-jp {
-  font-family: 'Noto Sans JP', sans-serif;
-  font-size: 14px;
-  color: var(--ink);
-  line-height: 1.7;
-  margin-bottom: 2px;
-  font-weight: 400;
-}
-.t-vn {
-  font-size: 12px;
-  color: var(--rust);
-  font-style: italic;
-  font-family: 'Lora', serif;
-  line-height: 1.5;
-  transition: opacity 0.25s;
-}
-.hide-vn .t-vn { opacity: 0; }
+/* TOAST */
+.toast { position:fixed; bottom:20px; left:50%; transform:translateX(-50%) translateY(10px); background:var(--ink); color:var(--white); padding:9px 18px; border-radius:8px; font-size:13px; opacity:0; transition:all .3s; pointer-events:none; z-index:1000; }
+.toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 
-/* ── EDIT TAB ── */
-.edit-wrap {
-  flex: 1;
-  overflow-y: auto;
-  padding: 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-.hint-box {
-  background: var(--cream);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 11px 13px;
-  font-size: 12px;
-  color: var(--ink3);
-  line-height: 1.7;
-}
-.hint-box code {
-  background: var(--cream2);
-  border: 1px solid var(--border);
-  padding: 1px 5px;
-  border-radius: 4px;
-  font-size: 11px;
-  color: var(--rust);
-  font-family: monospace;
-}
-.hint-box strong { color: var(--ink2); font-weight: 600; }
-.script-ta {
-  flex: 1;
-  min-height: 260px;
-  background: var(--cream);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  color: var(--ink);
-  font-size: 12.5px;
-  font-family: 'Noto Sans JP', monospace;
-  padding: 12px 14px;
-  resize: vertical;
-  outline: none;
-  line-height: 1.9;
-  transition: border-color 0.2s;
-}
-.script-ta:focus { border-color: rgba(26,23,19,0.25); background: var(--white); }
-.edit-actions { display: flex; gap: 8px; }
-
-/* ── SAMPLES TAB ── */
-.samples-wrap {
-  flex: 1;
-  overflow-y: auto;
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.s-card {
-  background: var(--white);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 12px 14px;
-  cursor: pointer;
-  transition: all 0.15s;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.s-card:hover {
-  border-color: rgba(26,23,19,0.22);
-  background: var(--cream);
-  box-shadow: var(--shadow);
-}
-.s-icon {
-  width: 38px; height: 38px;
-  border-radius: 8px;
-  background: var(--cream2);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 18px;
-  flex-shrink: 0;
-}
-.s-info { flex: 1; min-width: 0; }
-.s-level {
-  font-size: 10px;
-  font-weight: 600;
-  color: var(--rust);
-  letter-spacing: 0.6px;
-  text-transform: uppercase;
-  margin-bottom: 2px;
-}
-.s-title {
-  font-family: 'Lora', serif;
-  font-size: 14px;
-  color: var(--ink);
-  font-weight: 500;
-  margin-bottom: 1px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.s-sub {
-  font-size: 11px;
-  color: var(--ink4);
-}
-.s-arrow { color: var(--ink4); font-size: 14px; }
-
-/* ── EMPTY STATE ── */
-.empty {
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  height: 100%; gap: 10px;
-  color: var(--ink4); text-align: center; padding: 24px;
-}
-.empty-icon { font-size: 32px; margin-bottom: 4px; opacity: 0.5; }
-.empty p { font-size: 13px; line-height: 1.6; max-width: 200px; }
-.empty strong { color: var(--ink3); font-weight: 500; }
-
-/* Responsive */
-@media (max-width: 860px) {
-  .app { grid-template-columns: 1fr; grid-template-rows: auto auto auto 1fr; height: auto; min-height: calc(100vh - 56px); }
-  .right-panel { border-left: none; border-top: 1px solid var(--border); height: 50vh; }
-  .video-panel { height: auto; }
-  .karaoke-area { min-height: 140px; padding: 16px; }
+@media(max-width:860px){
+  .app { grid-template-columns:1fr; height:auto; min-height:calc(100vh - 54px); }
+  .right-panel { border-left:none; border-top:1px solid var(--border); height:50vh; }
 }
 </style>
 </head>
@@ -501,44 +149,42 @@ header {
 
 <!-- HEADER -->
 <header>
-  <div class="logo">影法師<span class="logo-dot">.</span></div>
-  <div class="header-divider"></div>
-  <div class="header-sub">Luyện shadowing tiếng Nhật</div>
-  <div class="header-right">
-    <button class="btn btn-outline" style="font-size:12px;padding:5px 12px" onclick="openTab('samples')">📚 Video mẫu</button>
+  <div class="logo">影法師<span>.</span></div>
+  <div class="hdiv"></div>
+  <div class="hdr-sub">Luyện shadowing tiếng Nhật</div>
+  <div class="hdr-right">
+    <div class="hdr-badge">🤖 Powered by Claude AI</div>
   </div>
 </header>
 
 <div class="app">
-
   <!-- URL BAR -->
   <div class="url-bar">
     <span class="url-label">YouTube</span>
-    <div class="url-input-wrap">
-      <input type="text" id="ytUrl" placeholder="Dán link video vào đây…  https://www.youtube.com/watch?v=..." />
-    </div>
-    <button class="btn btn-primary" onclick="loadVideo()">Tải video</button>
+    <input type="text" id="ytUrl" placeholder="Dán link video YouTube vào đây…" />
+    <button class="btn btn-green" id="btnFetch" onclick="fetchAndLoad()">✨ Tự động lấy transcript</button>
+    <button class="btn btn-outline" onclick="loadVideoOnly()">▶ Chỉ xem</button>
   </div>
 
-  <!-- LEFT: VIDEO -->
+  <!-- VIDEO PANEL -->
   <div class="video-panel">
     <div class="video-wrap">
       <div id="yt-placeholder">
         <div class="ph-icon">🎌</div>
-        <p>Dán link YouTube hoặc chọn <strong>Video mẫu</strong> để bắt đầu luyện shadowing</p>
+        <p>Dán link YouTube rồi nhấn <strong>✨ Tự động lấy transcript</strong><br>để có karaoke tiếng Nhật + dịch tiếng Việt</p>
       </div>
       <div id="yt-player" style="display:none"></div>
     </div>
-
     <div class="prog-wrap"><div class="prog-fill" id="prog"></div></div>
 
     <!-- KARAOKE -->
     <div class="karaoke-area" id="karaokeArea">
-      <div class="karaoke-line-num" id="lineNum"></div>
+      <div class="k-linenum" id="lineNum"></div>
+      <div class="k-status" id="kStatus"></div>
       <div class="karaoke-jp" id="kjp">
-        <span class="w">日本語</span><span class="w">を</span><span class="w">シャドー</span><span class="w">イング</span><span class="w active">で</span><span class="w done">学ぼう</span><span class="w done">。</span>
+        <span class="w done">日本語</span><span class="w done">を</span><span class="w active">シャドーイング</span><span class="w">で学ぼう</span>
       </div>
-      <div class="karaoke-vn" id="kvn">Học tiếng Nhật qua shadowing</div>
+      <div class="karaoke-vn" id="kvn">Học tiếng Nhật qua shadowing · Không cần đăng nhập</div>
     </div>
 
     <!-- CONTROLS -->
@@ -563,16 +209,20 @@ header {
   <div class="right-panel">
     <div class="tabs">
       <div class="tab on" onclick="openTab('transcript')">Transcript</div>
-      <div class="tab" onclick="openTab('edit')">Nhập script</div>
+      <div class="tab" onclick="openTab('edit')">Nhập thủ công</div>
       <div class="tab" onclick="openTab('samples')">Video mẫu</div>
+    </div>
+
+    <div class="fetch-bar" id="fetchBar">
+      <div class="fetch-steps" id="fetchSteps"></div>
     </div>
 
     <!-- TRANSCRIPT -->
     <div class="tc on" id="tc-transcript">
       <div class="t-list" id="tList">
         <div class="empty">
-          <div class="empty-icon">📄</div>
-          <p>Chưa có transcript.<br>Vào <strong>Nhập script</strong> để thêm hoặc chọn <strong>Video mẫu</strong>.</p>
+          <div class="empty-icon">✨</div>
+          <p>Dán link YouTube và nhấn <strong>✨ Tự động</strong> để lấy + dịch transcript.</p>
         </div>
       </div>
     </div>
@@ -585,14 +235,12 @@ header {
           <code>[giây]</code> Câu tiếng Nhật <code>|</code> Nghĩa tiếng Việt<br><br>
           Ví dụ:<br>
           <code>[0] おはようございます。| Chào buổi sáng.</code><br>
-          <code>[4.5] 今日はいい天気ですね。| Thời tiết hôm nay đẹp nhỉ.</code>
+          <code>[4.5] 今日はいい天気ですね。| Thời tiết đẹp nhỉ.</code>
         </div>
-        <textarea class="script-ta" id="scriptTa" placeholder="[0] おはようございます。| Chào buổi sáng.
-[3] 今日はいい天気ですね。| Thời tiết hôm nay đẹp nhỉ.
-[7] どこへ行くんですか？| Bạn đi đâu vậy?"></textarea>
+        <textarea class="script-ta" id="scriptTa" placeholder="[0] おはようございます。| Chào buổi sáng."></textarea>
         <div class="edit-actions">
           <button class="btn btn-primary" style="flex:1" onclick="applyScript()">Áp dụng</button>
-          <button class="btn btn-outline" onclick="document.getElementById('scriptTa').value='';lines=[];renderList()">Xoá</button>
+          <button class="btn btn-outline" onclick="clearScript()">Xoá</button>
         </div>
       </div>
     </div>
@@ -602,192 +250,227 @@ header {
       <div class="samples-wrap" id="samplesWrap"></div>
     </div>
   </div>
-
 </div>
 
+<div class="toast" id="toast"></div>
+
 <script>
-// ── DATA ──────────────────────────────────────────────────────────────
+// ── SAMPLES ───────────────────────────────────────────────────────────
 const SAMPLES = [
-  { icon:'👋', level:'N5 · Cơ bản', title:'挨拶 — Lời chào', sub:'Hội thoại hằng ngày',
-    vid:'l2j4jX8SZBU',
-    sc:`[2] こんにちは！| Xin chào!
-[4.5] お元気ですか？| Bạn có khỏe không?
-[6.5] はい、元気です。ありがとう。| Vâng, tôi khỏe. Cảm ơn bạn.
-[10] あなたは？| Còn bạn thì sao?
-[12] 私も元気です。| Tôi cũng khỏe.
-[15] 今日、何をしますか？| Hôm nay bạn làm gì?
-[18] 図書館へ行きます。| Tôi đến thư viện.
-[21] そうですか。じゃあ、またね！| Vậy à. Hẹn gặp lại!
-[25] またね！| Hẹn gặp lại!`
-  },
-  { icon:'🛍', level:'N5 · Mua sắm', title:'お買い物 — Mua hàng', sub:'Tại cửa hàng',
-    vid:'Ww2-9JDiGG0',
-    sc:`[1] いらっしゃいませ！| Chào mừng quý khách!
-[3.5] これはいくらですか？| Cái này bao nhiêu tiền?
-[5.5] 五百円です。| 500 yên ạ.
-[7.5] じゃあ、これをください。| Cho tôi cái này.
-[10] ありがとうございます。| Cảm ơn quý khách.
-[12.5] 袋は必要ですか？| Cần túi không ạ?
-[15] いいえ、結構です。| Không, không cần.
-[18] またお越しください。| Mời quý khách ghé lại.`
-  },
-  { icon:'🚃', level:'N4 · Giao thông', title:'電車で — Trên tàu', sub:'Hỏi đường · Trạm',
-    vid:'dQw4w9WgXcQ',
-    sc:`[2] すみません、この電車は渋谷に止まりますか？| Xin lỗi, tàu này dừng ở Shibuya không?
-[7] はい、次の駅が渋谷です。| Vâng, ga tiếp theo là Shibuya.
-[11] ありがとうございます。| Cảm ơn bạn.
-[13.5] 何分かかりますか？| Mất bao nhiêu phút?
-[16] だいたい三分です。| Khoảng 3 phút.
-[19] 混んでいますね。| Đông người quá nhỉ.
-[21.5] そうですね。朝のラッシュです。| Đúng vậy, giờ cao điểm mà.
-[26] もうすぐ着きますよ。| Sắp đến rồi.`
-  },
-  { icon:'🍜', level:'N4 · Nhà hàng', title:'レストランで — Gọi món', sub:'Đặt bàn · Order',
-    vid:'dQw4w9WgXcQ',
-    sc:`[1.5] いらっしゃいませ。何名様ですか？| Chào mừng. Mấy người ạ?
-[5] 二人です。| Hai người.
-[7] こちらへどうぞ。| Mời quý khách ngồi đây.
-[10] ご注文はお決まりですか？| Quý khách đã chọn món chưa?
-[13.5] ラーメンをひとつお願いします。| Cho tôi một tô ramen.
-[17] お飲み物は？| Đồ uống ạ?
-[19.5] お水をください。| Cho tôi nước lọc.
-[22] かしこまりました。少々お待ちください。| Vâng, xin đợi một chút.`
-  },
-  { icon:'📰', level:'N3 · Tin tức', title:'天気予報 — Dự báo', sub:'Thính lực thực tế',
-    vid:'dQw4w9WgXcQ',
-    sc:`[0.5] 今日の天気予報をお伝えします。| Xin thông báo dự báo thời tiết hôm nay.
-[4.5] 東京は午前中は晴れるでしょう。| Tokyo, buổi sáng dự kiến sẽ nắng.
-[8.5] しかし、午後から雨が降る可能性があります。| Tuy nhiên, từ chiều có khả năng mưa.
-[14] 傘を持って出かけることをおすすめします。| Nên mang ô khi ra ngoài.
-[19] 最高気温は二十三度の見込みです。| Nhiệt độ cao nhất dự kiến 23°C.
-[24] 良い一日をお過ごしください。| Chúc quý vị ngày tốt lành.`
-  },
-  { icon:'💼', level:'N2 · Business', title:'就職面接 — Phỏng vấn', sub:'Tiếng Nhật thương mại',
-    vid:'dQw4w9WgXcQ',
-    sc:`[1] 本日はお忙しい中、面接していただきありがとうございます。| Cảm ơn anh/chị đã dành thời gian phỏng vấn tôi.
-[7] いいえ、よろしくお願いします。| Không có gì, rất mong được làm việc cùng.
-[11] まず、自己紹介をお願いできますか？| Trước tiên xin tự giới thiệu?
-[15.5] はい、田中太郎と申します。| Vâng, tôi là Tanaka Taro.
-[19] 前職ではシステムエンジニアとして五年間勤めました。| Tôi đã làm kỹ sư hệ thống 5 năm ở công ty cũ.
-[26] 御社のビジョンに共感し、応募いたしました。| Tôi đồng cảm với tầm nhìn quý công ty nên ứng tuyển.`
-  }
+  { icon:'👋', level:'N5', title:'挨拶 — Lời chào hỏi', sub:'Hội thoại cơ bản', vid:'l2j4jX8SZBU',
+    sc:`[2] こんにちは！| Xin chào!\n[4.5] お元気ですか？| Bạn có khỏe không?\n[6.5] はい、元気です。ありがとう。| Vâng, tôi khỏe. Cảm ơn.\n[10] あなたは？| Còn bạn thì sao?\n[12] 私も元気です。| Tôi cũng khỏe.\n[15] 今日、何をしますか？| Hôm nay bạn làm gì?\n[18] 図書館へ行きます。| Tôi đến thư viện.\n[21] じゃあ、またね！| Vậy thì hẹn gặp lại!`},
+  { icon:'🛍', level:'N5', title:'お買い物 — Mua hàng', sub:'Tại cửa hàng', vid:'Ww2-9JDiGG0',
+    sc:`[1] いらっしゃいませ！| Chào mừng quý khách!\n[3.5] これはいくらですか？| Cái này bao nhiêu tiền?\n[5.5] 五百円です。| 500 yên ạ.\n[7.5] じゃあ、これをください。| Cho tôi cái này.\n[10] ありがとうございます。| Cảm ơn quý khách.\n[15] いいえ、結構です。| Không, không cần.`},
+  { icon:'🚃', level:'N4', title:'電車で — Trên tàu điện', sub:'Hỏi đường · Trạm ga', vid:'dQw4w9WgXcQ',
+    sc:`[2] すみません、この電車は渋谷に止まりますか？| Xin lỗi, tàu này dừng ở Shibuya không?\n[7] はい、次の駅が渋谷です。| Vâng, ga tiếp theo là Shibuya.\n[13.5] 何分かかりますか？| Mất bao nhiêu phút?\n[16] だいたい三分です。| Khoảng 3 phút.\n[21.5] そうですね。朝のラッシュです。| Đúng vậy, giờ cao điểm mà.`},
+  { icon:'🍜', level:'N4', title:'レストランで — Nhà hàng', sub:'Gọi món · Order', vid:'dQw4w9WgXcQ',
+    sc:`[1.5] いらっしゃいませ。何名様ですか？| Chào mừng. Mấy người ạ?\n[5] 二人です。| Hai người.\n[10] ご注文はお決まりですか？| Quý khách đã chọn món chưa?\n[13.5] ラーメンをひとつお願いします。| Cho tôi một tô ramen.\n[22] かしこまりました。少々お待ちください。| Vâng, xin đợi một chút.`},
+  { icon:'📰', level:'N3', title:'天気予報 — Dự báo thời tiết', sub:'Tin tức · Nghe thực tế', vid:'dQw4w9WgXcQ',
+    sc:`[0.5] 今日の天気予報をお伝えします。| Xin thông báo dự báo thời tiết hôm nay.\n[4.5] 東京は午前中は晴れるでしょう。| Tokyo, buổi sáng dự kiến sẽ nắng.\n[8.5] しかし、午後から雨が降る可能性があります。| Tuy nhiên, từ chiều có khả năng mưa.\n[24] 良い一日をお過ごしください。| Chúc quý vị ngày tốt lành.`},
+  { icon:'💼', level:'N2', title:'就職面接 — Phỏng vấn', sub:'Tiếng Nhật thương mại', vid:'dQw4w9WgXcQ',
+    sc:`[1] 本日はお忙しい中、面接していただきありがとうございます。| Cảm ơn anh/chị đã dành thời gian.\n[11] まず、自己紹介をお願いできますか？| Trước tiên xin tự giới thiệu?\n[15.5] はい、田中太郎と申します。| Vâng, tôi là Tanaka Taro.\n[19] 前職ではシステムエンジニアとして五年間勤めました。| Tôi làm kỹ sư hệ thống 5 năm.`}
 ];
 
 // ── STATE ─────────────────────────────────────────────────────────────
 let player=null, lines=[], curLine=-1;
-let st = { vn:true, repeat:false, scroll:true };
+let st={vn:true,repeat:false,scroll:true};
 let ticker=null;
 
-// ── YT API ────────────────────────────────────────────────────────────
-function onYouTubeIframeAPIReady(){}
+// ── YOUTUBE CAPTION FETCH ─────────────────────────────────────────────
+async function fetchCaptions(videoId) {
+  const proxy = 'https://api.allorigins.win/get?url=';
 
+  setStep(0,'active');
+  const pageUrl = encodeURIComponent(`https://www.youtube.com/watch?v=${videoId}`);
+  const pageRes = await fetch(proxy + pageUrl);
+  if (!pageRes.ok) throw new Error('Không tải được trang YouTube');
+  const { contents: html } = await pageRes.json();
+
+  const match = html.match(/"captionTracks":(\[.*?\])/);
+  if (!match) throw new Error('Video này không có caption / phụ đề tiếng Nhật');
+
+  let tracks;
+  try { tracks = JSON.parse(match[1]); }
+  catch { throw new Error('Lỗi đọc danh sách caption'); }
+
+  const jaTrack = tracks.find(t=>t.languageCode==='ja')
+    || tracks.find(t=>t.languageCode==='ja-JP')
+    || tracks.find(t=>t.kind==='asr')
+    || tracks[0];
+
+  if (!jaTrack) throw new Error('Không tìm thấy track caption tiếng Nhật');
+  setStep(0,'done');
+
+  setStep(1,'active');
+  const capUrl = encodeURIComponent(jaTrack.baseUrl);
+  const capRes = await fetch(proxy + capUrl);
+  if (!capRes.ok) throw new Error('Không tải được caption XML');
+  const { contents: xml } = await capRes.json();
+
+  const doc = new DOMParser().parseFromString(xml, 'text/xml');
+  const textEls = doc.querySelectorAll('text');
+  if (!textEls.length) throw new Error('Caption trống');
+
+  const rawLines = Array.from(textEls).map(el => ({
+    t: parseFloat(el.getAttribute('start') || '0'),
+    jp: el.textContent
+      .replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>')
+      .replace(/&quot;/g,'"').replace(/&#39;/g,"'")
+      .replace(/<[^>]+>/g,'').trim(),
+    vn: ''
+  })).filter(l => l.jp);
+
+  setStep(1,'done');
+  return rawLines;
+}
+
+// ── CLAUDE TRANSLATE via /api/translate ───────────────────────────────
+async function translateLines(rawLines) {
+  setStep(2,'active');
+
+  const res = await fetch('/api/translate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ lines: rawLines })
+  });
+
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || 'Lỗi server dịch');
+
+  const { translations } = data;
+  if (!Array.isArray(translations)) throw new Error('Kết quả dịch không hợp lệ');
+
+  setStep(2,'done');
+  return rawLines.map((l,i) => ({ ...l, vn: translations[i] || '' }));
+}
+
+// ── STEPS UI ─────────────────────────────────────────────────────────
+const STEPS = ['📡 Lấy caption','📝 Đọc phụ đề','🤖 Dịch tiếng Việt'];
+function initSteps() {
+  document.getElementById('fetchBar').className='fetch-bar show';
+  document.getElementById('fetchSteps').innerHTML = STEPS.map((l,i) =>
+    `<div class="fstep" id="fs${i}">○ ${l}</div>`).join('');
+}
+function setStep(i,state) {
+  const el = document.getElementById(`fs${i}`);
+  if (!el) return;
+  const icons = { active:`<span class="spin-sm"></span>`, done:'✓', err:'✗' };
+  el.className = `fstep ${state}`;
+  el.innerHTML = `${icons[state]||'○'} ${STEPS[i]}`;
+}
+
+// ── MAIN FETCH FLOW ───────────────────────────────────────────────────
+async function fetchAndLoad() {
+  const url = document.getElementById('ytUrl').value.trim();
+  const m = url.match(/(?:v=|youtu\.be\/|embed\/)([a-zA-Z0-9_-]{11})/);
+  if (!m) { showToast('❌ URL YouTube không hợp lệ!'); return; }
+  const vid = m[1];
+
+  const btn = document.getElementById('btnFetch');
+  btn.disabled = true; btn.textContent = '⏳ Đang xử lý…';
+  initSteps();
+  openTab('transcript');
+  setKStatus('<span class="spin"></span> Đang lấy transcript…');
+
+  try {
+    const rawLines = await fetchCaptions(vid);
+
+    // Show JP while translating
+    lines = rawLines;
+    renderList();
+    doLoadPlayer(vid);
+
+    const translated = await translateLines(rawLines);
+    lines = translated;
+    renderList();
+
+    document.getElementById('scriptTa').value =
+      lines.map(l=>`[${l.t}] ${l.jp}${l.vn?' | '+l.vn:''}`).join('\n');
+
+    setKStatus('');
+    showToast(`✅ Xong! ${lines.length} câu đã được dịch`);
+
+  } catch(err) {
+    console.error(err);
+    setKStatus('');
+    for(let i=2;i>=0;i--){
+      const el=document.getElementById(`fs${i}`);
+      if(el&&el.classList.contains('active')){ setStep(i,'err'); break; }
+    }
+    showToast('❌ '+err.message);
+    doLoadPlayer(vid);
+  }
+
+  btn.disabled=false; btn.textContent='✨ Tự động lấy transcript';
+}
+
+function setKStatus(html){ document.getElementById('kStatus').innerHTML=html; }
+function loadVideoOnly(){
+  const m=document.getElementById('ytUrl').value.match(/(?:v=|youtu\.be\/|embed\/)([a-zA-Z0-9_-]{11})/);
+  if(!m){showToast('❌ URL không hợp lệ');return;}
+  doLoadPlayer(m[1]);
+}
+
+// ── YOUTUBE PLAYER ────────────────────────────────────────────────────
+function onYouTubeIframeAPIReady(){}
 function doLoadPlayer(vid){
   document.getElementById('yt-placeholder').style.display='none';
   const el=document.getElementById('yt-player'); el.style.display='block';
-  if(player){ player.loadVideoById(vid); return; }
+  if(player){player.loadVideoById(vid);return;}
   player=new YT.Player('yt-player',{
     videoId:vid,
     playerVars:{autoplay:1,rel:0,modestbranding:1,iv_load_policy:3},
     events:{
-      onReady(){ startTick(); },
+      onReady(){startTick();},
       onStateChange(e){
-        if(e.data===YT.PlayerState.PLAYING) startTick();
-        else stopTick();
-        if(e.data===YT.PlayerState.ENDED && st.repeat && curLine>=0) seekLine(curLine);
+        if(e.data===YT.PlayerState.PLAYING)startTick();else stopTick();
+        if(e.data===YT.PlayerState.ENDED&&st.repeat&&curLine>=0)seekLine(curLine);
       }
     }
   });
 }
 
-function loadVideo(){
-  const url=document.getElementById('ytUrl').value.trim();
-  const m=url.match(/(?:v=|youtu\.be\/|embed\/)([a-zA-Z0-9_-]{11})/);
-  if(!m){ alert('URL YouTube không hợp lệ!'); return; }
-  doLoadPlayer(m[1]);
-}
-
 // ── TICKER ────────────────────────────────────────────────────────────
-function startTick(){ stopTick(); ticker=setInterval(tick,180); }
-function stopTick(){ if(ticker){clearInterval(ticker);ticker=null;} }
-
+function startTick(){stopTick();ticker=setInterval(tick,180);}
+function stopTick(){if(ticker){clearInterval(ticker);ticker=null;}}
 function tick(){
-  if(!player||!player.getCurrentTime) return;
+  if(!player||!player.getCurrentTime)return;
   const t=player.getCurrentTime();
-  updateProg(t);
-  if(!lines.length) return;
+  const d=player.getDuration?player.getDuration():0;
+  document.getElementById('prog').style.width=(d?t/d*100:0)+'%';
+  if(!lines.length)return;
   let idx=-1;
-  for(let i=0;i<lines.length;i++){ if(t>=lines[i].t) idx=i; else break; }
-  if(idx!==curLine){
-    curLine=idx;
-    if(idx>=0) renderKaraoke(idx);
-    highlightList(idx);
-  }
-  if(idx>=0) animWords(t,idx);
-}
-
-function updateProg(t){
-  if(!player||!player.getDuration) return;
-  const d=player.getDuration()||0;
-  document.getElementById('prog').style.width=(d?(t/d*100):0)+'%';
+  for(let i=0;i<lines.length;i++){if(t>=lines[i].t)idx=i;else break;}
+  if(idx!==curLine){curLine=idx;if(idx>=0)renderKaraoke(idx);highlightList(idx);}
+  if(idx>=0)animWords(t,idx);
 }
 
 // ── KARAOKE ──────────────────────────────────────────────────────────
 function renderKaraoke(i){
   const l=lines[i];
   document.getElementById('lineNum').textContent=`${i+1} / ${lines.length}`;
-  const parts=chunkJp(l.jp);
-  document.getElementById('kjp').innerHTML=parts.map((w,j)=>`<span class="w" data-j="${j}">${w}</span>`).join('');
+  document.getElementById('kjp').innerHTML=chunkJp(l.jp).map(w=>`<span class="w">${w}</span>`).join('');
   document.getElementById('kvn').textContent=l.vn||'';
 }
-
 function chunkJp(s){
-  const r=[]; let b='';
-  for(const c of s){
-    b+=c;
-    if('。、！？・…　 '.includes(c)||b.length>=4){r.push(b);b='';}
-  }
-  if(b) r.push(b);
-  return r;
+  const r=[];let b='';
+  for(const c of s){b+=c;if('。、！？・…　 '.includes(c)||b.length>=4){r.push(b);b='';}}
+  if(b)r.push(b);return r;
 }
-
 function animWords(t,i){
-  if(i<0||i>=lines.length) return;
-  const l=lines[i];
-  const nxt=i+1<lines.length?lines[i+1].t:l.t+6;
+  const l=lines[i],nxt=i+1<lines.length?lines[i+1].t:l.t+6;
   const pct=Math.min((t-l.t)/(nxt-l.t),1);
   const ws=document.querySelectorAll('#kjp .w');
-  if(!ws.length) return;
+  if(!ws.length)return;
   const ai=Math.floor(pct*ws.length);
-  ws.forEach((w,j)=>{
-    w.classList.remove('done','active');
-    if(j<ai) w.classList.add('done');
-    else if(j===ai) w.classList.add('active');
-  });
-  if(st.repeat && pct>=0.97 && i===curLine) seekLine(i);
+  ws.forEach((w,j)=>{w.classList.remove('done','active');if(j<ai)w.classList.add('done');else if(j===ai)w.classList.add('active');});
+  if(st.repeat&&pct>=0.97&&i===curLine)seekLine(i);
 }
 
-// ── SCRIPT ────────────────────────────────────────────────────────────
-function parseScript(raw){
-  return raw.split('\n').map(l=>l.trim()).filter(Boolean).map(l=>{
-    const m=l.match(/^\[(\d+(?:\.\d+)?)\]\s*(.+)/);
-    if(!m) return null;
-    const pts=m[2].split('|');
-    return {t:parseFloat(m[1]), jp:pts[0].trim(), vn:pts[1]?pts[1].trim():''};
-  }).filter(Boolean);
-}
-
-function applyScript(){
-  lines=parseScript(document.getElementById('scriptTa').value);
-  renderList();
-  openTab('transcript');
-}
-
+// ── LIST ──────────────────────────────────────────────────────────────
 function renderList(){
   const el=document.getElementById('tList');
-  if(!lines.length){
-    el.innerHTML='<div class="empty"><div class="empty-icon">📄</div><p>Chưa có transcript.<br>Vào <strong>Nhập script</strong> hoặc chọn <strong>Video mẫu</strong>.</p></div>';
-    return;
-  }
+  if(!lines.length){el.innerHTML='<div class="empty"><div class="empty-icon">✨</div><p>Dán link YouTube và nhấn <strong>✨ Tự động</strong>.</p></div>';return;}
   el.innerHTML=lines.map((l,i)=>`
     <div class="t-card" id="tc${i}" onclick="seekLine(${i})">
       <div class="t-time">${fmt(l.t)}</div>
@@ -795,40 +478,42 @@ function renderList(){
       ${l.vn?`<div class="t-vn">${l.vn}</div>`:''}
     </div>`).join('');
 }
-
 function highlightList(i){
   document.querySelectorAll('.t-card').forEach((c,j)=>c.classList.toggle('on',j===i));
-  if(st.scroll&&i>=0){
-    const el=document.getElementById(`tc${i}`);
-    if(el) el.scrollIntoView({behavior:'smooth',block:'nearest'});
-  }
+  if(st.scroll&&i>=0){const el=document.getElementById(`tc${i}`);if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'});}
 }
-
 function seekLine(i){
-  if(!player||!player.seekTo) return;
-  player.seekTo(lines[i].t,true); player.playVideo();
-  curLine=i; renderKaraoke(i); highlightList(i);
+  if(!player||!player.seekTo)return;
+  player.seekTo(lines[i].t,true);player.playVideo();
+  curLine=i;renderKaraoke(i);highlightList(i);
 }
+function fmt(s){return `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;}
 
-function fmt(s){ const m=Math.floor(s/60),sec=Math.floor(s%60); return `${m}:${String(sec).padStart(2,'0')}`; }
+// ── MANUAL SCRIPT ─────────────────────────────────────────────────────
+function parseScript(raw){
+  return raw.split('\n').map(l=>l.trim()).filter(Boolean).map(l=>{
+    const m=l.match(/^\[(\d+(?:\.\d+)?)\]\s*(.+)/);
+    if(!m)return null;
+    const p=m[2].split('|');
+    return{t:parseFloat(m[1]),jp:p[0].trim(),vn:p[1]?p[1].trim():''};
+  }).filter(Boolean);
+}
+function applyScript(){lines=parseScript(document.getElementById('scriptTa').value);renderList();openTab('transcript');}
+function clearScript(){document.getElementById('scriptTa').value='';lines=[];renderList();}
 
 // ── CONTROLS ──────────────────────────────────────────────────────────
 function toggle(k){
   st[k]=!st[k];
-  const ids={vn:'cVn',repeat:'cRepeat',scroll:'cScroll'};
-  document.getElementById(ids[k]).classList.toggle('on',st[k]);
-  if(k==='vn'){
-    document.getElementById('karaokeArea').classList.toggle('hide-vn',!st.vn);
-    document.getElementById('tList').classList.toggle('hide-vn',!st.vn);
-  }
+  document.getElementById({vn:'cVn',repeat:'cRepeat',scroll:'cScroll'}[k]).classList.toggle('on',st[k]);
+  if(k==='vn'){document.getElementById('karaokeArea').classList.toggle('hide-vn',!st.vn);document.getElementById('tList').classList.toggle('hide-vn',!st.vn);}
 }
-function setSpeed(v){ if(player&&player.setPlaybackRate) player.setPlaybackRate(parseFloat(v)); }
+function setSpeed(v){if(player&&player.setPlaybackRate)player.setPlaybackRate(parseFloat(v));}
 
 // ── TABS ──────────────────────────────────────────────────────────────
 function openTab(name){
   const names=['transcript','edit','samples'];
   document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('on',names[i]===name));
-  names.forEach(n=>{ const el=document.getElementById(`tc-${n}`); el.classList.toggle('on',n===name); });
+  names.forEach(n=>document.getElementById(`tc-${n}`).classList.toggle('on',n===name));
 }
 
 // ── SAMPLES ──────────────────────────────────────────────────────────
@@ -837,24 +522,26 @@ function renderSamples(){
     <div class="s-card" onclick="loadSample(${i})">
       <div class="s-icon">${s.icon}</div>
       <div class="s-info">
-        <div class="s-level">${s.level}</div>
+        <div class="s-level">${s.level} · Mẫu có sẵn</div>
         <div class="s-title">${s.title}</div>
         <div class="s-sub">${s.sub}</div>
       </div>
-      <div class="s-arrow">›</div>
+      <div style="color:var(--ink4);font-size:14px">›</div>
     </div>`).join('');
 }
 function loadSample(i){
   const s=SAMPLES[i];
   document.getElementById('ytUrl').value=`https://www.youtube.com/watch?v=${s.vid}`;
   document.getElementById('scriptTa').value=s.sc;
-  lines=parseScript(s.sc);
-  renderList();
-  doLoadPlayer(s.vid);
-  openTab('transcript');
+  lines=parseScript(s.sc);renderList();doLoadPlayer(s.vid);openTab('transcript');
 }
 
-// ── INIT ──────────────────────────────────────────────────────────────
+// ── TOAST & INIT ─────────────────────────────────────────────────────
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className='toast show';
+  setTimeout(()=>t.className='toast',3200);
+}
 renderSamples();
 const ytTag=document.createElement('script');
 ytTag.src='https://www.youtube.com/iframe_api';
