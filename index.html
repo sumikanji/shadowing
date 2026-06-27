@@ -276,72 +276,34 @@ let player=null, lines=[], curLine=-1;
 let st={vn:true,repeat:false,scroll:true};
 let ticker=null;
 
-// ── YOUTUBE CAPTION FETCH ─────────────────────────────────────────────
+// ── FETCH CAPTIONS via server (no CORS issue) ────────────────────────
 async function fetchCaptions(videoId) {
-  const proxy = 'https://api.allorigins.win/get?url=';
-
   setStep(0,'active');
-  const pageUrl = encodeURIComponent(`https://www.youtube.com/watch?v=${videoId}`);
-  const pageRes = await fetch(proxy + pageUrl);
-  if (!pageRes.ok) throw new Error('Không tải được trang YouTube');
-  const { contents: html } = await pageRes.json();
-
-  const match = html.match(/"captionTracks":(\[.*?\])/);
-  if (!match) throw new Error('Video này không có caption / phụ đề tiếng Nhật');
-
-  let tracks;
-  try { tracks = JSON.parse(match[1]); }
-  catch { throw new Error('Lỗi đọc danh sách caption'); }
-
-  const jaTrack = tracks.find(t=>t.languageCode==='ja')
-    || tracks.find(t=>t.languageCode==='ja-JP')
-    || tracks.find(t=>t.kind==='asr')
-    || tracks[0];
-
-  if (!jaTrack) throw new Error('Không tìm thấy track caption tiếng Nhật');
-  setStep(0,'done');
-
-  setStep(1,'active');
-  const capUrl = encodeURIComponent(jaTrack.baseUrl);
-  const capRes = await fetch(proxy + capUrl);
-  if (!capRes.ok) throw new Error('Không tải được caption XML');
-  const { contents: xml } = await capRes.json();
-
-  const doc = new DOMParser().parseFromString(xml, 'text/xml');
-  const textEls = doc.querySelectorAll('text');
-  if (!textEls.length) throw new Error('Caption trống');
-
-  const rawLines = Array.from(textEls).map(el => ({
-    t: parseFloat(el.getAttribute('start') || '0'),
-    jp: el.textContent
-      .replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>')
-      .replace(/&quot;/g,'"').replace(/&#39;/g,"'")
-      .replace(/<[^>]+>/g,'').trim(),
-    vn: ''
-  })).filter(l => l.jp);
-
-  setStep(1,'done');
-  return rawLines;
-}
-
-// ── CLAUDE TRANSLATE via /api/translate ───────────────────────────────
-async function translateLines(rawLines) {
-  setStep(2,'active');
-
   const res = await fetch('/api/translate', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ lines: rawLines })
+    body: JSON.stringify({ action: 'captions', videoId })
   });
-
   const data = await res.json();
-  if (!res.ok) throw new Error(data.error || 'Lỗi server dịch');
+  if (!res.ok) throw new Error(data.error || 'Lỗi lấy caption');
+  setStep(0,'done');
+  setStep(1,'done');
+  return data.lines;
+}
 
-  const { translations } = data;
-  if (!Array.isArray(translations)) throw new Error('Kết quả dịch không hợp lệ');
-
+// ── TRANSLATE via server ──────────────────────────────────────────────
+async function translateLines(rawLines) {
+  setStep(2,'active');
+  const res = await fetch('/api/translate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: 'translate', lines: rawLines })
+  });
+  const data = await res.json();
+  if (!res.ok) throw new Error(data.error || 'Lỗi dịch');
+  if (!Array.isArray(data.translations)) throw new Error('Kết quả dịch không hợp lệ');
   setStep(2,'done');
-  return rawLines.map((l,i) => ({ ...l, vn: translations[i] || '' }));
+  return rawLines.map((l,i) => ({ ...l, vn: data.translations[i] || '' }));
 }
 
 // ── STEPS UI ─────────────────────────────────────────────────────────
